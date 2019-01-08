@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ProjectRepository {
 
     //GitHubService型である必要がある。インターフェースなので。
+    //テスト
     private GitHubService gitHubService;
 
     private static ProjectRepository projectRepository;
