@@ -85,6 +85,8 @@ public class ProjectRepository {
     public LiveData<Project> getProjectDetails(String userID, String projectName) {
         final MutableLiveData<Project> data = new MutableLiveData<>();
 
+//        GitHubServiceはインターフェース　その中にgetProjectListやgetProgectDetailsがある　実装をもたせたい
+//        enqueueはインターフェースだから実装をもたせる
         gitHubService.getProjectDetails(userID, projectName).enqueue(new Callback<Project>() {
             @Override
             public void onResponse(Call<Project> call, Response<Project> response) {
