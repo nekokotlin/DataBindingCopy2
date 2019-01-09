@@ -1,5 +1,7 @@
 package com.example.nb201803m079.databindingcopy2.service.repository;
 
+import android.support.annotation.Nullable;
+
 import com.example.nb201803m079.databindingcopy2.service.model.Project;
 
 import java.util.List;
@@ -14,6 +16,8 @@ interface GitHubService {
     String HTTPS_API_GITHUB_URL = "https://api.github.com/";
 
 
+    //    この中身見たらGET以下の指定についてわかる
+//    https://api.github.com/
     //ここの、getProjectListをどこで使うのか確認。
     @GET("users/{user}/repos")
     Call<List<Project>> getProjectList(@Path("user") String user);
