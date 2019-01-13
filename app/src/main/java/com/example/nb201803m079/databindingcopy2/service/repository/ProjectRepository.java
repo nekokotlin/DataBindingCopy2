@@ -103,4 +103,14 @@ public class ProjectRepository {
         return data;
     }
 
+    //引用：マルチスレッドの並列処理で無限ループを実行していた場合、CPUの負荷が大きくなりリソースを消費してメモリリークなどPCの動作が重くなる要因となってしまいます。
+    //そのため、マルチスレッドの処理中にsleepメソッドを使用して、処理を一時停止すればCPUの負荷を抑えられることができます。
+    private void simulateDelay() {
+        try {
+            Thread.sleep(10);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

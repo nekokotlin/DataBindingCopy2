@@ -14,7 +14,7 @@ import com.example.nb201803m079.databindingcopy2.service.repository.ProjectRepos
 
 public class ProjectViewModel extends AndroidViewModel {
 
-    private final LiveData<Project> projeceObservable;
+    private final LiveData<Project> projectObservable;
     private final String projectID;
 
     public ObservableField<Project> project = new ObservableField<>();
@@ -22,15 +22,19 @@ public class ProjectViewModel extends AndroidViewModel {
     public ProjectViewModel(@NonNull Application application, final String projectID) {
         super(application);
         this.projectID = projectID;
-        projeceObservable = ProjectRepository.getInstance().getProjectDetails("Tsutou", projectID);
+        projectObservable = ProjectRepository.getInstance().getProjectDetails("Tsutou", projectID);
     }
 
-    public LiveData<Project> getObservalProject() {
-        return projeceObservable;
+    public LiveData<Project> getObservableProject() {
+        return projectObservable;
     }
 
-    public void setProject(ObservableField<Project> project) {
-        this.project = project;
+//    まさかの写経ミスで、型が異なるのに書いてしまっていた
+//    public void setProject(ObservableField<Project> project) {
+//        this.project = project;
+//    }
+    public void setProject(Project project){
+        this.project.set(project);
     }
 
 
@@ -40,8 +44,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
 //    Factoryが何をしているかよくわからない。依存性の注入だから、外から値が入るようす？ただ、どうやって値を入れているのか？
 // 　　
-
-
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
@@ -55,7 +57,7 @@ public class ProjectViewModel extends AndroidViewModel {
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
-            return (T) new ProjectViewModel(application, projectID)
+            return (T) new ProjectViewModel(application, projectID);
         }
     }
 }
