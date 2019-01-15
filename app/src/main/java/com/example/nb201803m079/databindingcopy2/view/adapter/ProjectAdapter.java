@@ -136,6 +136,14 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 
 
 
+//    onCreateViewHolder
+//    viewTypeレイアウトの種類を入れてあげる。レイアウトを作成する。
+
+//　　onBindViewHolder
+//    onCreateで生成したビューに対し、中の処理を変えたりする
+//    positionで区別する。(positionが1のレイアウトだったら、この処理をする　とか)
+
+
 //    ここでViewHolderを作成する
 
     @Override
@@ -149,35 +157,28 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
 //        これを書いてあげることで、CallbackをBindingクラスのインスタンスにセットし、
 //        レイアウトファイルで使えるようになる
                 binding.setCallback(projectClickCallback);
+
+
+//                生成したビューをbindしているから、bindingを渡すことで、｢ビューを渡す｣ことになっている？
         return new ProjectViewHolder(binding);
     }
 
 //    ここも実装必須
 
 
-//    RecyclerView.ViewHolderのバインド
-//    ここが何をしているのかわからない。
-//    なぜViewHolderをバインドする必要があるのか
     @Override
     public void onBindViewHolder(ProjectViewHolder holder, int position){
 
-//        下記bindingはProjectListItemBinding
-//        もしbinding.setProject(~)だったら、project_list_item内で、Projectモデルの中身を使えるようにしている
-
-//        ViewHolderに対してProjectモデルを使えるようにしている、ということ？
-//        初めの一回のみ、表示するビューを格納するのがViewHolder
-//        としたら、表示に関わるものだけBindしてあげて、
-//        コールバックなどは不要？(処理だから)
 //        setCallbackとsetProjectが分かれているのがわからない
+//        holderがもつViewという概念だったらわかる･･･
+//        https://github.com/cookpad/cookpad-internship-2017-summer/blob/master/android/05-show_post_list.md
+//        →ここでbindingには生成したビューが入っている
 
-//        setProjectはビューで表示するものだから、ViewHolder
-//        コールバックは処理だから、ViewHolderでBindしなくてもいい？
-        
+//        bindして更にholderに入れている？
+//        ここで条件分岐して、positionごとに処理を変更することもできる。
         holder.binding.setProject(projectlist.get(position));
         holder.binding.executePendingBindings();
     }
-
-
 
 
 
@@ -187,8 +188,7 @@ public class ProjectAdapter extends RecyclerView.Adapter<ProjectAdapter.ProjectV
     }
 
 
-
-
+//    ここでViewHolderのクラスを定義している
     static class ProjectViewHolder extends RecyclerView.ViewHolder {
         final ProjectListItemBinding binding;
 

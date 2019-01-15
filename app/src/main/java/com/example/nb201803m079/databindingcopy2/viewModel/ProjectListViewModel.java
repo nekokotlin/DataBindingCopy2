@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 
+import com.example.nb201803m079.databindingcopy2.R;
 import com.example.nb201803m079.databindingcopy2.service.model.Project;
 import com.example.nb201803m079.databindingcopy2.service.repository.ProjectRepository;
 
@@ -23,7 +24,7 @@ public class ProjectListViewModel extends AndroidViewModel {
 //        それが更にGitHubServiceのCall<List<Project>> getProjectList(@Path("user") String user);
 //        ここに繋がり、APIを通じてデータを取得できる
 //        依存関係が一方向！今の所ViewModel→Model→APIの順に動いている
-        projectListObservable = ProjectRepository.getInstance().getProjectList("Tsutou");
+        projectListObservable = ProjectRepository.getInstance().getProjectList(getApplication().getString(R.string.github_user_name));
     }
 
 //    取得した値を返す

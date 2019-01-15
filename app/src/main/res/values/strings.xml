@@ -16,7 +16,9 @@
         <string name="project_watchers">Project Watchers</string>
         <string name="project_description">Project Description</string>
         <string name="open_issues">開かれているIssues</string>
-        <string name="loading_project">Loading Project ...</string>
+        <string name="loading_project">Loading Project しています！！！！</string>
+    <string name="github_user_name">wataru-script</string>
+
 
         <string name="hello_blank_fragment">取得失敗。。。。</string>
 </resources>

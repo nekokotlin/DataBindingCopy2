@@ -39,7 +39,6 @@ public class ProjectRepository {
         gitHubService = retrofit.create(GitHubService.class);
     }
 
-    //シングルトンってstaticだけで書けないのか。Javaだから
     public synchronized static ProjectRepository getInstance() {
         if (projectRepository == null) {
             projectRepository = new ProjectRepository();
@@ -67,7 +66,7 @@ public class ProjectRepository {
             @Override
             public void onResponse(Call<List<Project>> call, @Nullable Response<List<Project>> response) {
 //                これはMutableLiveData
-                data.setValue(response.body());
+                data.postValue(response.body());
             }
 
             @Override
@@ -91,7 +90,7 @@ public class ProjectRepository {
             @Override
             public void onResponse(Call<Project> call, Response<Project> response) {
                 simulateDelay();
-                data.setValue(response.body());
+                data.postValue(response.body());
             }
 
             @Override
