@@ -88,6 +88,8 @@ public class ProjectListFragment extends Fragment {
 
     }
 
+//    コールバックの処理、クリックしたら詳細を表示する処理。(showメソッドを確認すること)
+
     private final ProjectClickCallback projectClickCallback = new ProjectClickCallback() {
         @Override
         public void onClick(Project project) {

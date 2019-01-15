@@ -47,7 +47,6 @@ public class ProjectRepository {
     }
 
 
-//    LiveData　つまり死活管理？
     public LiveData<List<Project>> getProjectList(String userId) {
         final MutableLiveData<List<Project>> data = new MutableLiveData<>();
 

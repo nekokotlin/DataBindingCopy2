@@ -1,6 +1,8 @@
 package com.example.nb201803m079.databindingcopy2.view.ui;
 
 import android.app.Activity;
+import android.app.Application;
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
@@ -18,6 +20,7 @@ import android.widget.ListView;
 import com.example.nb201803m079.databindingcopy2.R;
 import com.example.nb201803m079.databindingcopy2.databinding.FragmentProjectDetailsBinding;
 import com.example.nb201803m079.databindingcopy2.service.model.Project;
+import com.example.nb201803m079.databindingcopy2.service.repository.ProjectRepository;
 import com.example.nb201803m079.databindingcopy2.viewModel.ProjectViewModel;
 
 
@@ -104,27 +107,38 @@ public class ProjectFragment extends Fragment {
 
 
 
-//    --------------------------------　いったんProjectListFragmentへ。　2019/01/13　15:21
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-//        ここでfactoryが出てる！
+//        依存性の注入！！！！！！！
+//        ProjectViewModelのインスタンスを作成している
+//        privateの状態でインスタンスが作れる
+//        依存性がない
+
+//        ViewとViewModelはそれぞれ独立しないといけないので、FragmentとViewModelは別
+//        ここでインスタンスを普通に作ってしまうと、ProjectFragmentに依存してしまうので、
+//        ProjectFragmentがないとインスタンスが使えないことになる
+//        下記のようにFactoryで作ってあげれば、(Factory内でインスタンスが作成されるので)
+//        インスタンスの依存性がなくなる。
+
         ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
                 getActivity().getApplication(), getArguments().getString(KEY_PROJECT_ID)
         );
 
+//        factoryでインスタンスの生成
         final ProjectViewModel viewModel = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
 
         binding.setProjectViewModel(viewModel);
-
         binding.setIsLoading(true);
 
+//        ビューモデルの監視を行う
         observeViewModel(viewModel);
 
     }
 
+//    ビューモデルの監視を定義
     public void observeViewModel(final ProjectViewModel viewModel){
         viewModel.getObservableProject().observe(this, new Observer<Project>() {
             @Override
@@ -136,6 +150,20 @@ public class ProjectFragment extends Fragment {
             }
         });
     }
+
+
+//    詳細を取得している
+//    private ProjectViewModel(@NonNull Application application, final String projectID) {
+//        super(application);
+//        this.mProjectID = projectID;
+//        projectObservable = ProjectRepository.getInstance().getProjectDetails(getApplication().getString(R.string.github_user_name), mProjectID);
+//    }
+//
+//    public LiveData<Project> getObservableProject() {
+//        return projectObservable;
+//    }
+
+
 
     public static ProjectFragment forProject(String projectID) {
         ProjectFragment fragment = new ProjectFragment();

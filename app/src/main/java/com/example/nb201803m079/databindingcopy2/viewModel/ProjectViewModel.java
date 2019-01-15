@@ -30,6 +30,10 @@ public class ProjectViewModel extends AndroidViewModel {
         return projectObservable;
     }
 
+
+
+
+
 //    まさかの写経ミスで、型が異なるのに書いてしまっていた
 //    public void setProject(ObservableField<Project> project) {
 //        this.project = project;
