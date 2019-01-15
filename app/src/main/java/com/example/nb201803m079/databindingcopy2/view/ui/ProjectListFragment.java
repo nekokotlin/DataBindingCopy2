@@ -20,6 +20,9 @@ import com.example.nb201803m079.databindingcopy2.viewModel.ProjectListViewModel;
 
 import java.util.List;
 
+
+//前提として、このFragmentはMainActivityが呼ばれた時に呼ばれる。
+
 public class ProjectListFragment extends Fragment {
     public static final String TAG = "ProjectListFragment";
     private ProjectAdapter projectAdapter;
@@ -30,9 +33,11 @@ public class ProjectListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstance) {
 
+//        Fragmentに対しDatabindingを行うため、inflate
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_project_list, container, false);
 
         projectAdapter = new ProjectAdapter(projectClickCallback);
+//        ProjectAdapterとは何か？
 
         binding.projectList.setAdapter(projectAdapter);
         binding.setIsLoading(true);
