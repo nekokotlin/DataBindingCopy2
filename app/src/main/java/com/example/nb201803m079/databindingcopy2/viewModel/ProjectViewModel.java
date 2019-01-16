@@ -20,6 +20,9 @@ public class ProjectViewModel extends AndroidViewModel {
 
     public ObservableField<Project> project = new ObservableField<>();
 
+
+
+
     private ProjectViewModel(@NonNull Application application, final String projectID) {
         super(application);
         this.mProjectID = projectID;
@@ -30,25 +33,13 @@ public class ProjectViewModel extends AndroidViewModel {
         return projectObservable;
     }
 
-
-
-
-
-//    まさかの写経ミスで、型が異なるのに書いてしまっていた
-//    public void setProject(ObservableField<Project> project) {
-//        this.project = project;
-//    }
     public void setProject(Project project){
         this.project.set(project);
     }
 
 
-//    ViewModelProviderを継承したFactory
-//    ViewModelはUIに関連したデータを保持･管理している。
-//    ViewModelのインスタンスはViewModelProvider経由で取得する(下のFactoryは、ViewModelのインスタンスを作成する別の手段？)
 
-//    Factoryが何をしているかよくわからない。依存性の注入だから、外から値が入るようす？ただ、どうやって値を入れているのか？
-// 　　
+
 
     public static class Factory extends ViewModelProvider.NewInstanceFactory {
         @NonNull
@@ -66,3 +57,10 @@ public class ProjectViewModel extends AndroidViewModel {
         }
     }
 }
+
+
+//オブザーバーについて
+//オブザーバーが次に非アクティブな状態からアクティブな状態に変わったときには、
+// 前回アクティブになったときから値が変更された場合にのみ最新データを受け取ります。
+
+

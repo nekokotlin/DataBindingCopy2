@@ -65,6 +65,12 @@ public class ProjectRepository {
             @Override
             public void onResponse(Call<List<Project>> call, @Nullable Response<List<Project>> response) {
 //                これはMutableLiveData
+
+//                このときに注意しないといけないのは、
+//                setValue、postValueというのがあるんですが、setValueのほうはUIスレッドだけです。
+//                IOスレッドで呼ぶと例外を起こします。なので、このコードではpostValueを使っています。
+
+
                 data.postValue(response.body());
             }
 

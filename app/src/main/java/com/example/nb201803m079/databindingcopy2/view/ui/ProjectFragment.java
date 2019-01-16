@@ -128,6 +128,15 @@ public class ProjectFragment extends Fragment {
         );
 
 //        factoryでインスタンスの生成
+//        直接インスタンスを作るのではなく、Factory経由で作っている
+//        理由は依存性の注入
+
+
+//        このおかげで、FragmentやActivityに依存せずに、ViewModelの処理を扱うことができる
+//        MyViewModel model = ViewModelProviders.of(this).get(MyViewModel.class);
+//        model.getUsers().observe(this, users -> {
+//            // update UI
+//        });
         final ProjectViewModel viewModel = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
 
         binding.setProjectViewModel(viewModel);
@@ -139,6 +148,7 @@ public class ProjectFragment extends Fragment {
     }
 
 //    ビューモデルの監視を定義
+//    ViewModelの仕組みがあることで、これはProjectFragmentでも使えるし別のViewでも使える
     public void observeViewModel(final ProjectViewModel viewModel){
         viewModel.getObservableProject().observe(this, new Observer<Project>() {
             @Override
